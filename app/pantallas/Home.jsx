@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View , Image, ScrollView} from "react-native";
+import ButtonInfo from "../componentes/ButtonInfo";
+import { Link  } from "expo-router";
 
 // recetas para diabeticos -- puras recetas para diabeticos
 {/** arreglar los nombre verdaderos, despues.... */}
@@ -54,10 +56,15 @@ const dataRecetas = [
   const Recetas = ({ nombre, tiempo, img }) => {
     return (
                 <View style={styles.containerRecetasMain}>
-                <Image source={img} style={{ width: 200, height: 200, alignItems: 'center'}} />
-                <Text>{nombre}</Text>
-                <Text>{tiempo}</Text>
-    </View>
+                    <Image source={img} style={{ width: 200, height: 200, alignItems: 'center'}} />
+                      <View style={styles.containerTextoCards}>
+                          <Text>{nombre}</Text>
+                        <Text>{tiempo}</Text>
+                      </View>
+                        <View style={styles.containerTextoVerMas}>
+                        <Text style={styles.txtVerMas}>Ver mas</Text>
+                        </View>
+                 </View>
     );
   }
 
@@ -65,42 +72,77 @@ const dataRecetas = [
 export default function Home() {
 
     return (
-        <View style={styles.container}>
-         <View style={styles.containerTextoMain}>
-            <View style={styles.containerTxtRecetas}>
-            <Text style={styles.txtMain}>Mejores Recetas para Diabeticos</Text> 
-            <Text style={styles.txtVerMasMain}>Ver mas.</Text>
-        </View>
-        
+      <View>
 
-        <ScrollView horizontal>
 
-        <View style={{ flexDirection: 'row' }}>
-                        {dataRecetas.map((receta) => (
-                            <Recetas
-                                key={receta.id}
-                                nombre={receta.nombre}
-                                tiempo={receta.tiempo}
-                                img={receta.img}
+
+
+
+
+
+                      <View style={styles.container}>
+                      <View style={styles.containerTextoMain}>
+                      <Text style={styles.txtMain2}>Las Mejores Recetas Para Diabeticos</Text> 
+                          <View style={styles.containerTxtRecetas}>
+                        
+                           </View>
+                      
+
+                      <ScrollView horizontal>
+                      <Link href='/pantallas/RecetasDiabe'>
+                      <View style={{ flexDirection: 'row' }}>
+                                      {dataRecetas.map((receta) => (
+                                          <Recetas
+                                              key={receta.id}
+                                              nombre={receta.nombre}
+                                              tiempo={receta.tiempo}
+                                              img={receta.img}
+                                          />
+                                      ))}
+                                  </View>
+               
+                      </Link>
+               
+                          </ScrollView>
+                  
+
+                      </View>
+                      </View>
+
+
+                      <View style={styles.containerSeccion2}>
+             
+                          <Text style={styles.txtMain2}>Tienes alguna otra enfermedad ademas de la DIABETES?</Text>
+                                      <View>
+                                        <Image
+                                        source={require('../assets/img/avatarCookIa.png')}
+                                        style={{ width: 200, height: 200, alignItems: 'center'}}
+                                        />
+                                      </View>
+                 
+                           <ButtonInfo 
+                            titulo="Ir a recetas Personalizadas."
+                            color="green"
+                            ruta="/pantallas/RecetasPersona"
                             />
-                        ))}
-                    </View>
-            </ScrollView>
-     
-
-        </View>
-
-        </View>
+                           
+                      </View>
+            </View>
     );
     }
 const styles = StyleSheet.create({
     container: {
-        marginTop: 60,
-        
+        marginTop: 10,
+        width: '100%',
+    },  
+    containerSeccion2: {
+        marginTop: 20,
+        width: '100%',
+        alignItems: 'center',
     },
     containerTxtRecetas: {
         width: '100%',
-        height: 100,
+        height: 'auto',
         justifyContent: 'space-evenly',
     },
     txtMain: {
@@ -108,15 +150,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'green',
         textAlign: 'center',
+        textAlign: 'right',
+        marginHorizontal: 10,
     },
     containerTextoMain: {
         marginHorizontal: 10,
         marginVertical: 10,
     },
     txtVerMasMain: {
-        fontSize: 15,
+        fontSize: 20,
         color: 'green',
-        textAlign: 'center',
+        textAlign: 'right',
+        marginHorizontal: 20,
     },
     containerRecetasMain: {
         marginVertical: 10,
@@ -126,8 +171,32 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         backgroundColor: '#90EE90', // cambiar a verde mas claro en hexacedimal
         borderRadius: 22,
-        padding: 10,
+        padding: 12,
     },
 
 
+    txtMain2: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: 'green',
+        textAlign: 'center',
+        marginVertical: 10,
+        marginHorizontal: 10,
+    },
+    containerTextoCards: {
+      width: '100%',
+      height: 'auto',
+      justifyContent: 'space-evenly',
+    },
+    containerTextoVerMas: {
+      width: '100%',
+      height: 'auto',
+      justifyContent: 'space-evenly',
+    },
+    txtVerMas: {
+      fontSize: 16,
+      color: 'green',
+      textAlign: 'right',
+      marginHorizontal: 20,
+    },
     });
